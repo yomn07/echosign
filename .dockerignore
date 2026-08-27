@@ -1,0 +1,37 @@
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.env.*
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Frontend dependencies
+node_modules/
+frontend/node_modules/
+
+# Frontend build
+dist/
+frontend/dist/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

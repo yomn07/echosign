@@ -1,0 +1,13 @@
+fastapi==0.141.1
+uvicorn[standard]==0.52.1
+
+SQLAlchemy==2.0.51
+psycopg2-binary==2.9.12
+
+python-dotenv==1.2.2
+
+pydantic==2.13.4
+
+httpx==0.28.1
+python-multipart==0.0.32
+numpy==2.2.5

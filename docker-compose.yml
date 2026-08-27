@@ -1,0 +1,111 @@
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    container_name: echosign-frontend
+
+    depends_on:
+      - gateway
+
+    ports:
+      - "8080:80"
+
+    restart: unless-stopped
+
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+
+    container_name: echosign-gateway
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - auth-service
+      - translation-service
+      - sign-service
+      - trial-service
+
+    restart: unless-stopped
+
+
+  auth-service:
+    build:
+      context: ./backend/service/auth_service
+      dockerfile: Dockerfile
+
+    container_name: echosign-auth
+
+    env_file:
+      - .env
+
+    ports:
+    - "8001:8001"
+
+    restart: unless-stopped
+
+
+  translation-service:
+    build:
+      context: ./backend/service/translation_service
+      dockerfile: Dockerfile
+
+    container_name: echosign-translation
+
+    env_file:
+      - .env
+
+    ports:
+    - "8003:8003"
+
+    restart: unless-stopped
+
+
+  sign-service:
+    build:
+      context: .
+      dockerfile: backend/service/sign_service/Dockerfile
+
+    container_name: echosign-sign
+
+    ports:
+    - "8002:8002"
+
+    restart: unless-stopped
+
+
+  trial-service:
+    build:
+      context: ./backend/service/trial_service
+      dockerfile: Dockerfile
+
+    container_name: echosign-trial
+
+    env_file:
+      - .env
+
+    ports:
+    - "8004:8004"
+
+    depends_on:
+      - auth-service
+
+    restart: unless-stopped
+
+  # ============================================================
+  # REDIS
+  # ============================================================
+
+  redis:
+    image: redis:7-alpine
+    container_name: echosign-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
