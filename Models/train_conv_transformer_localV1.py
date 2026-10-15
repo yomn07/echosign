@@ -42,7 +42,6 @@ def get_augmentation_factor(n):
 
 
 class InterpolatedASLDataset(torch.utils.data.Dataset):
-    """Identical to your original -- copied here so this script is self-contained."""
 
     def __init__(self, dataset, label_counts, augment=False):
         self.dataset = dataset
@@ -109,7 +108,7 @@ def main():
 
     model = ConvTransformerClassifier(
         input_dim=225,
-        dim=192,               # matches the write-up's base single-model size
+        dim=192,               
         kernel_size=17,
         num_classes=NUM_CLASSES,
         conv_drop_rate=0.2,
@@ -118,7 +117,7 @@ def main():
         transformer_expand=2,
         attn_dropout=0.2,
         late_dropout_rate=0.8,
-        late_dropout_start_step=15 * (len(train_ds) // 32),  # ~epoch 15, matching the write-up
+        late_dropout_start_step=15 * (len(train_ds) // 32),  
     )
     print("Parameters:", model.count_parameters())
     assert model.count_parameters() == 1_898_615, (
@@ -133,7 +132,7 @@ def main():
         val_dataset=val_ds,
         checkpoint_dir=CHECKPOINT_DIR,
         batch_size=32,
-        learning_rate=5e-4,   # closer to the write-up's LR for this architecture than your GRU model's 1e-4
+        learning_rate=5e-4,   
         epochs=120,
         device=DEVICE,
         class_weights=weights,
